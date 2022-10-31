@@ -1,4 +1,4 @@
-const boggle_solver = require('/home/rjingwi/Desktop/boggle_solver.js');
+const boggle_solver = require('/home/rjingwi/Desktop/Boggle_Assignment2/boggle_solver.js');
 
 /** Lowercases a string array in-place. (Used for case-insensitive string array
  *  matching).
@@ -53,8 +53,46 @@ describe('Boggle Solver tests suite:', () => {
       lowercaseStringArray(expected);
       expect(solutions.sort()).toEqual(expected.sort());
     });
-  });
 
+    test('Find valid words', () => {
+      let grid = [['P','U','L'],
+                  ['M','A','P'],
+                  ['R','W','X']];
+      let dictionary = ['ramp','car','maul','marx','wax','pulp'];
+      let expected = ['maul','wax','pulp','ramp'];
+
+      let solutions = boggle_solver.findAllSolutions(grid,dictionary);
+      lowercaseStringArray(solutions);
+      lowercaseStringArray(expected);
+      expect(solutions.sort()).toEqual(expected.sort());
+    });
+
+    test('Recurse on diagonal', () => {
+      let grid = [['O','U','X'],
+                  ['M','X','P'],
+                  ['X','W','O']];
+      let dictionary = ['oxo','xxx'];
+      let expected = ['oxo','xxx'];
+
+      let solutions = boggle_solver.findAllSolutions(grid,dictionary);
+      lowercaseStringArray(solutions);
+      lowercaseStringArray(expected);
+      expect(solutions.sort()).toEqual(expected.sort());
+    });
+
+    test('Non-adjacent letters', () => {
+      let grid = [['C','A','R'],
+                  ['I','M','P'],
+                  ['E','N','O']];
+      let dictionary = ['can','ona','cir'];
+      let expected = [];
+
+      let solutions = boggle_solver.findAllSolutions(grid,dictionary);
+      lowercaseStringArray(solutions);
+      lowercaseStringArray(expected);
+      expect(solutions.sort()).toEqual(expected.sort());
+    });	  
+  });
   
   describe('Problem contraints', () => {
     // Cases such as Qu
@@ -65,6 +103,34 @@ describe('Boggle Solver tests suite:', () => {
                   ['B','O','Qu','D']];
       let dictionary = ['quail','quo','oil','qu','pore'];
       let expected = ['quail','quo','oil'];
+
+      let solutions = boggle_solver.findAllSolutions(grid,dictionary);
+      lowercaseStringArray(solutions);
+      lowercaseStringArray(expected);
+      expect(solutions.sort()).toEqual(expected.sort());
+    });
+    
+    test('Word ending with q', () => {
+      let grid = [['Q','U','L','E'],
+                  ['M','A','P','R'],
+                  ['R','W','I','L'],
+                  ['B','O','Q','D']];
+      let dictionary = ['maq','raq','oil'];
+      let expected = [];
+
+      let solutions = boggle_solver.findAllSolutions(grid,dictionary);
+      lowercaseStringArray(solutions);
+      lowercaseStringArray(expected);
+      expect(solutions.sort()).toEqual(expected.sort());
+    });
+
+    test('Grid with Qx', () => {
+      let grid = [['Qe','U','L','E'],
+                  ['M','A','P','R'],
+                  ['R','W','I','L'],
+                  ['B','O','Qi','D']];
+      let dictionary = ['qid','qea','oil'];
+      let expected = [];
 
       let solutions = boggle_solver.findAllSolutions(grid,dictionary);
       lowercaseStringArray(solutions);
@@ -118,6 +184,20 @@ describe('Boggle Solver tests suite:', () => {
       let solutions = boggle_solver.findAllSolutions(grid, dictionary);
 
       // Lowercasing for case-insensitive string array matching.
+      lowercaseStringArray(solutions);
+      lowercaseStringArray(expected);
+      expect(solutions.sort()).toEqual(expected.sort());
+    });
+
+    test('No duplicate words', () => {
+      let grid = [['P','U','L','E'],
+                  ['O','O','M','R'],
+                  ['O','M','I','L'],
+                  ['L','O','St','D']];
+      let dictionary = ['pool','mist'];
+      let expected = ['pool','mist'];
+
+      let solutions = boggle_solver.findAllSolutions(grid,dictionary);
       lowercaseStringArray(solutions);
       lowercaseStringArray(expected);
       expect(solutions.sort()).toEqual(expected.sort());

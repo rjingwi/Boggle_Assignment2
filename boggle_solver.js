@@ -118,8 +118,11 @@ const check_valid_grid = function(grid){
       if((grid[i][i2] == "Q") || (grid[i][i2] == "S")){
         return false;
       }
+      if((grid[i][i2].length > 1) && ((grid[i][i2].toLowerCase() != "qu") &&  (grid[i][i2].toLowerCase() != "st"))){
+	return false;
+      }
       if(!/^[a-zA-Z]+$/.test(grid[i][i2])){
-        return false
+        return false;
       }
     }
   }
